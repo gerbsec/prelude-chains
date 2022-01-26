@@ -7,7 +7,7 @@ find / -perm -4000 -type f 2>/dev/null | sed 's:.*/::' | (while read s; do
             fi
         done;
     done;
-    uniq=($(printf "%s\n" "${x[@]}" | sort -u ))
+    uniq=($(printf "%s\n" "${uncleanList[@]}" | sort -u ))
     echo ${uniq[@]} > output)
     echo "Possible exploitable suid's: " $(cat output)
     for i in $(cat output); do
