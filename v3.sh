@@ -8,6 +8,7 @@ for eSuid in ${suidGTFO[@]};do
             fi
         done;
     done;
-for i in ${exploitables[@]};do
+uniq=($(printf "%s\n" "${exploitables[@]}" | sort -u ))
+for i in ${uniq[@]};do
     echo '{"suid": '\"$i\"'}'
 done;
