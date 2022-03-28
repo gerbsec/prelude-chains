@@ -1,0 +1,1 @@
+echo 'nohup /tmp/pneuma -address 193.168.1.12:2323 -range Testing -name Test >/dev/null 2>&1 &' | ./shell

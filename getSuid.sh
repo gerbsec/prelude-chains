@@ -9,6 +9,4 @@ for eSuid in ${suidGTFO[@]};do
         done;
     done;
 uniq=($(printf "%s\n" "${exploitables[@]}" | sort -u ))
-for i in ${uniq[@]};do
-    echo '{"suid": '\"$i\"'}'
-done;
+echo "[" ; printf -v x "{ \"suid\": \"%s\" }, " "${uniq[@]}";x=${x%, } ;echo "$x"; echo "]"; 
